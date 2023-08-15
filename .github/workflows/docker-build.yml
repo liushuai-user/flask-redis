@@ -5,18 +5,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -
-        name: Checkout
+        name: check out repository code
         uses: actions/checkout@v2
-      -  
-        name: docker image build
-        run: docker build -t 18390753385a/flask-redis .
-      -
-        name: list docker image 
-        run: docker image ls
       -
         name: dockerhub login
         run: docker login -u ${{secrets.DOCKERHUB_USERNAME}} -p ${{secrets.DOCKERHUB_PASSWORD}}
       -
-        name: push to dockerhub
-        run: docker image push 18390753385a/flask-redis
+        name: buildx images
+        run: docker buildx create --name mybuilder
+             docker buildx ls
+             docker buildx build --push --platform linux/arm/v7,linux/arm64/v8,linux/amd64 -t 18390753385a/flask-redis:latest .
+            
       
