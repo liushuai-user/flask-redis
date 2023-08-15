@@ -13,8 +13,8 @@ jobs:
       -
         name: buildx images
         run: |
-             docker buildx create --name mybuilder --use \
-             docker buildx ls \
+             docker buildx create --name mybuilder --use 
+             docker buildx ls 
              docker buildx build --push --platform linux/arm/v7,linux/arm64/v8,linux/amd64 -t 18390753385a/flask-redis:latest .
             
       
